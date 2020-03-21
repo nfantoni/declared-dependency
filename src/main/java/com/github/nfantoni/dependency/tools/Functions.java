@@ -16,13 +16,13 @@ public class Functions {
     private Functions() {}
 
     public static Map<String,String> decodeExpression(String expression){
-        Pattern pattern = Pattern.compile(Constants.EXPRESSION_PATTRN);
+        Pattern pattern = Pattern.compile(Constants.OUTPUT_FORMAT_PATTRN);
         Matcher matcher = pattern.matcher(expression);
         Map<String,String> keyList = new HashMap<>();
 
         while (matcher.find()) {
             String key = matcher.group(0);
-            keyList.put(key,key.replace("#{", "").replace("}", ""));
+            keyList.put(key,key.replace("#{", "").replace("}#", ""));
         }
         return keyList;
     }

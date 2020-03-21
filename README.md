@@ -26,13 +26,13 @@ com.github.nfantoni:dependency-3:1.0.0-SNAPSHOT:compile
 
 | Name | Description | Defult |
 |---|---|---|
-|  *declared-dependency.list.expression* | expression to format the output in according with *org.apache.maven.model.Dependency*. The field are in the format *#{fieldName}* | *#{groupId}:#{artifactId}:#{version}:#{scope}*
-| *declared-dependency.list.includeScope* | Comma separated value of the dependency scope to extract, use the option *all* to list every scope | *compile* |
+|  *declared-dependency.list.outputFormat* | expression to format the output in according with *org.apache.maven.model.Dependency*. The fields are in the format *#!{fieldName}!#* | *#!{groupId}!#:#!{artifactId}!#:#!{version}!#:#!{scope}!#*
+| *declared-dependency.list.scopes* | Comma separated value of the dependency scope to extract, use the option *all* to list every scope | *compile* |
 
 Complete example call:
 
 ```bash
 mvn com.github.nfantoni:declared-dependency:list \
-    -Ddeclared-dependency.list.expression="#{groupId}:#{artifactId}:#{version}" \
-    -Ddeclared-dependency.list.includeScope=all -q
+    -Ddeclared-dependency.list.outputFormat="#{groupId}#:#{artifactId}#:#{version}#" \
+    -Ddeclared-dependency.list.scopes=all -q
 ```

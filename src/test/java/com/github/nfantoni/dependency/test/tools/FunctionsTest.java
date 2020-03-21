@@ -31,19 +31,19 @@ public class FunctionsTest extends AbstractMojoTestCase {
 
         assertNotNull(project);
 
-        String expression = "#{groupId}:#{artifactId}:#{version}:#{scope}";
+        String expression = "#{groupId}#:#{artifactId}#:#{version}#:#{scope}#";
 
         Map<String,String> keyList = Functions.decodeExpression(expression);
 
-        assertTrue(keyList.containsKey("#{groupId}"));
-        assertTrue(keyList.containsKey("#{artifactId}"));
-        assertTrue(keyList.containsKey("#{version}"));
-        assertTrue(keyList.containsKey("#{scope}"));
+        assertTrue(keyList.containsKey("#{groupId}#"));
+        assertTrue(keyList.containsKey("#{artifactId}#"));
+        assertTrue(keyList.containsKey("#{version}#"));
+        assertTrue(keyList.containsKey("#{scope}#"));
 
-        assertEquals("groupId", keyList.get("#{groupId}"));
-        assertEquals("artifactId", keyList.get("#{artifactId}"));
-        assertEquals("version", keyList.get("#{version}"));
-        assertEquals("scope", keyList.get("#{scope}"));
+        assertEquals("groupId", keyList.get("#{groupId}#"));
+        assertEquals("artifactId", keyList.get("#{artifactId}#"));
+        assertEquals("version", keyList.get("#{version}#"));
+        assertEquals("scope", keyList.get("#{scope}#"));
 
         List<Dependency> dependencyList = project.getDependencies();
 
@@ -63,19 +63,19 @@ public class FunctionsTest extends AbstractMojoTestCase {
 
         assertNotNull(project);
 
-        String expression = "#{groupId}:#{artifactId}:#{version}:#{not-valid}";
+        String expression = "#{groupId}#:#{artifactId}#:#{version}#:#{not-valid}#";
 
         Map<String,String> keyList = Functions.decodeExpression(expression);
 
-        assertTrue(keyList.containsKey("#{groupId}"));
-        assertTrue(keyList.containsKey("#{artifactId}"));
-        assertTrue(keyList.containsKey("#{version}"));
-        assertTrue(keyList.containsKey("#{not-valid}"));
+        assertTrue(keyList.containsKey("#{groupId}#"));
+        assertTrue(keyList.containsKey("#{artifactId}#"));
+        assertTrue(keyList.containsKey("#{version}#"));
+        assertTrue(keyList.containsKey("#{not-valid}#"));
 
-        assertEquals("groupId", keyList.get("#{groupId}"));
-        assertEquals("artifactId", keyList.get("#{artifactId}"));
-        assertEquals("version", keyList.get("#{version}"));
-        assertEquals("not-valid", keyList.get("#{not-valid}"));
+        assertEquals("groupId", keyList.get("#{groupId}#"));
+        assertEquals("artifactId", keyList.get("#{artifactId}#"));
+        assertEquals("version", keyList.get("#{version}#"));
+        assertEquals("not-valid", keyList.get("#{not-valid}#"));
 
         List<Dependency> dependencyList = project.getDependencies();
 

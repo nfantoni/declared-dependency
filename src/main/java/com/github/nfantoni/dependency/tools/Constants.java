@@ -4,5 +4,5 @@ public class Constants {
 
     private Constants() {}
 
-    public static final String EXPRESSION_PATTRN = "(\\#\\{[^#\\{]*\\})";
+    public static final String OUTPUT_FORMAT_PATTRN = "(\\#\\{[^#\\{]*\\}\\#)";
 }
