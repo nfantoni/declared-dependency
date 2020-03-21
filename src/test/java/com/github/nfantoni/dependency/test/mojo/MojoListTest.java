@@ -15,7 +15,7 @@ public class MojoListTest extends AbstractMojoTestCase {
 private static final String SCOPES_DEFAULT = "compile";
 
     @Test
-    public void testEvaulateHappyPath() throws Exception {
+    public void testEvaulateHappyPath() {
 
         try{
             MavenUtils mavenUtils = new MavenUtils();
@@ -23,7 +23,7 @@ private static final String SCOPES_DEFAULT = "compile";
             MojoList mojo = new MojoList(DEFAULT_EXPRESSION,SCOPES_DEFAULT,project);
             mojo.execute();
         }catch (Exception ex){
-
+            fail("Exception not allowed");
         }
 
     }

@@ -15,11 +15,16 @@ import static com.github.nfantoni.dependency.tools.Functions.formatDependencyLis
 
 public class FunctionsTest extends AbstractMojoTestCase {
 
+    private static final String GROUPID_PATTERN = "#{groupId}#";
+    private static final String ARTIFACTID_PATTERN = "#{artifactId}#";
+    private static final String VERSION_PATTERN = "#{version}#";
+    private static final String COMPILE = "compile";
+
     @Test
     public void testCheckScope(){
-        assertTrue(Functions.checkScope("all", "compile"));
-        assertTrue(Functions.checkScope("compile,test", "compile"));
-        assertFalse(Functions.checkScope("compile", "test"));
+        assertTrue(Functions.checkScope("all", COMPILE));
+        assertTrue(Functions.checkScope("compile,test", COMPILE));
+        assertFalse(Functions.checkScope(COMPILE, "test"));
     }
 
     @Test
@@ -35,20 +40,20 @@ public class FunctionsTest extends AbstractMojoTestCase {
 
         Map<String,String> keyList = Functions.decodeExpression(expression);
 
-        assertTrue(keyList.containsKey("#{groupId}#"));
-        assertTrue(keyList.containsKey("#{artifactId}#"));
-        assertTrue(keyList.containsKey("#{version}#"));
+        assertTrue(keyList.containsKey(GROUPID_PATTERN));
+        assertTrue(keyList.containsKey(ARTIFACTID_PATTERN));
+        assertTrue(keyList.containsKey(VERSION_PATTERN));
         assertTrue(keyList.containsKey("#{scope}#"));
 
-        assertEquals("groupId", keyList.get("#{groupId}#"));
-        assertEquals("artifactId", keyList.get("#{artifactId}#"));
-        assertEquals("version", keyList.get("#{version}#"));
+        assertEquals("groupId", keyList.get(GROUPID_PATTERN));
+        assertEquals("artifactId", keyList.get(ARTIFACTID_PATTERN));
+        assertEquals("version", keyList.get(VERSION_PATTERN));
         assertEquals("scope", keyList.get("#{scope}#"));
 
         List<Dependency> dependencyList = project.getDependencies();
 
         String result = formatDependencyList(dependencyList,
-                expression, "compile", keyList);
+                expression, COMPILE, keyList);
 
         assertEquals("com.github.nfantoni:dependency-1:1.0.0-SNAPSHOT:compile\n" +
                              "com.github.nfantoni:dependency-3:1.0.0-SNAPSHOT:compile", result);
@@ -67,21 +72,21 @@ public class FunctionsTest extends AbstractMojoTestCase {
 
         Map<String,String> keyList = Functions.decodeExpression(expression);
 
-        assertTrue(keyList.containsKey("#{groupId}#"));
-        assertTrue(keyList.containsKey("#{artifactId}#"));
-        assertTrue(keyList.containsKey("#{version}#"));
+        assertTrue(keyList.containsKey(GROUPID_PATTERN));
+        assertTrue(keyList.containsKey(ARTIFACTID_PATTERN));
+        assertTrue(keyList.containsKey(VERSION_PATTERN));
         assertTrue(keyList.containsKey("#{not-valid}#"));
 
-        assertEquals("groupId", keyList.get("#{groupId}#"));
-        assertEquals("artifactId", keyList.get("#{artifactId}#"));
-        assertEquals("version", keyList.get("#{version}#"));
+        assertEquals("groupId", keyList.get(GROUPID_PATTERN));
+        assertEquals("artifactId", keyList.get(ARTIFACTID_PATTERN));
+        assertEquals("version", keyList.get(VERSION_PATTERN));
         assertEquals("not-valid", keyList.get("#{not-valid}#"));
 
         List<Dependency> dependencyList = project.getDependencies();
 
         try{
             formatDependencyList(dependencyList,
-                    expression, "compile", keyList);
+                    expression, COMPILE, keyList);
             fail("Exception expected");
         }catch (Exception ex){
             assertEquals("Error ", ex.getMessage());
